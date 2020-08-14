@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <table>
+        <thead style="border: 1px solid black;">
+          <tr cols-span=>
+            <td colspan="4"><strong>Students Result Board</strong></td>
+          </tr>
+          <tr>
+            <th><i>StudentName</i></th>
+            <th><i>RollNumber</i></th>
+            <th><i>TotalMarks</i></th>
+            <th><i>Status</i></th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+      </table>
+    </div>
+    <script>
+      var students = [
+        {
+          name: "rajiv",
+          marks: {
+            Maths: 18,
+            English: 21,
+            Science: 45,
+          },
+          rollNumber: "KV2017-5A2",
+        },
+        {
+          name: "abhishek",
+          marks: {
+            Maths: 43,
+            English: 30,
+            Science: 37,
+          },
+          rollNumber: "KV2017-5A1",
+        },
+        {
+          name: "zoya",
+          marks: {
+            Maths: 42,
+            English: 31,
+            Science: 50,
+          },
+          rollNumber: "KV2017-5A3",
+        },
+      ];
+
+      // sorting arrays in object according to names in alphabetical order;
+      students.sort((a,b)=>{
+          let fa = a.name.toLowerCase(), fb=b.name.toLowerCase();
+          
+          if(fa<fb){
+              return -1;
+          }
+          if(fa<fb){
+              return 1;
+          }
+          return 0;
+      })
+
+      var container = document.querySelector("#container");
+      var tbody = document.querySelector("#table-body");
+      var maximumMarks = 50;
+      var minimumMarks = 20
+      var status = ''
+      var row = document.querySelector('.row')
+      
+      students.forEach((student)=>{
+
+
+        //Captitalized the first letter of Name and sorted.
+        var studentsNames = student.name.charAt(0).toUpperCase()+ student.name.slice(1);
+        //Status of students
+        if(student.marks.English <= minimumMarks || student.marks.Maths <= minimumMarks || student.marks.Science<=minimumMarks){
+            status = "Failed";
+        }else if (student.marks.English >= maximumMarks || student.marks.Maths >= maximumMarks || student.marks.Science >= maximumMarks) {
+            status = "Topper"
+        } else {
+            status = "Passed"
+        }
+        var tr = `<tr class = "row">
+                    <td>${studentsNames}</td>
+                    <td>${student.rollNumber}</td>
+                    <td>${student.marks.English + student.marks.Maths+student.marks.Science}</td>
+                    <td>${status}</td>
+            </tr>`
+        tbody.innerHTML += tr;
+      });
+      var setColor = this.tbody.children;
+        setColor[1].setAttribute("style","color:red;")
+        setColor[2].setAttribute("style","color:green;");
+        
+    </script>
+  </body>
+</html>
+ 
